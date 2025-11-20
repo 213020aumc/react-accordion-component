@@ -1,0 +1,84 @@
+@import "tailwindcss";
+
+@layer components {
+  .accordion {
+    @apply w-[700px] mx-auto my-[100px] flex flex-col gap-6;
+  }
+
+  .item {
+    @apply p-5 pr-12 cursor-pointer grid grid-cols-[auto_1fr_auto] gap-x-6 gap-y-8 items-center border-t-4 border-t-white;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .item.open {
+    @apply border-t-4 border-t-green-700;
+  }
+
+  .number {
+    @apply text-2xl font-medium text-gray-400;
+  }
+
+  .number.open {
+    @apply text-green-700;
+  }
+
+  .title {
+    @apply text-2xl font-medium;
+  }
+
+  .title.open {
+    @apply text-green-700;
+  }
+
+  .icon {
+    @apply text-2xl font-medium;
+  }
+
+  .content-box {
+    @apply col-span-2 pb-4;
+    line-height: 1.6;
+  }
+}
+
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
