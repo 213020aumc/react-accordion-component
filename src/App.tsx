@@ -36,24 +36,71 @@ interface AccordionProps {
 interface AccordionItemProps {
   num: number;
   title: string;
-  text: string;
+  children: React.ReactNode;
+  curOpen: number | null;
+  onOpen: (num: number | null) => void;
 }
 
 function Accordion({ data }: AccordionProps) {
+  const [curOpen, setCurOpen] = useState<number | null>(null);
   return (
     <div className="accordion">
       {data.map((el, i) => (
-        <AccordionItem title={el.title} text={el.text} num={i} key={el.title} />
+        <AccordionItem
+          curOpen={curOpen}
+          onOpen={setCurOpen}
+          title={el.title}
+          num={i}
+          key={el.title}
+        >
+          {el.text}
+        </AccordionItem>
       ))}
+      <AccordionItem
+        curOpen={curOpen}
+        onOpen={setCurOpen}
+        title={"React Important Topics"}
+        num={data.length}
+        key={"React Important Topics"}
+      >
+        <ul className="content-box">
+          <li>Components and Props</li>
+          <li>State and Lifecycle</li>
+          <li>Handling Events</li>
+          <li>Conditional Rendering</li>
+          <li>Lists and Keys</li>
+          <li>Forms</li>
+          <li>Lifting State Up</li>
+          <li>Composition vs Inheritance</li>
+          <li>React Hooks</li>
+          <li>Context API</li>
+          <li>Error Boundaries</li>
+          <li>React Router</li>
+          <li>Performance Optimization</li>
+          <li>Testing in React</li>
+          <li>Server-Side Rendering (SSR)</li>
+          <li>Static Site Generation (SSG)</li>
+          <li>State Management Libraries (Redux, MobX)</li>
+          <li>Type Checking with PropTypes or TypeScript</li>
+          <li>React Developer Tools</li>
+          <li>Accessibility in React</li>
+        </ul>
+      </AccordionItem>
     </div>
   );
 }
 
-function AccordionItem({ num, title, text }: AccordionItemProps) {
-  const [isOpen, setIsOpen] = useState(false);
+function AccordionItem({
+  curOpen,
+  onOpen,
+  num,
+  title,
+  children,
+}: AccordionItemProps) {
+  const isOpen = curOpen === num;
 
   function handleToggle() {
-    setIsOpen((isOpen) => !isOpen);
+    onOpen(isOpen ? null : num);
   }
 
   return (
@@ -64,7 +111,7 @@ function AccordionItem({ num, title, text }: AccordionItemProps) {
       <p className={`title ${isOpen ? "open" : ""}`}>{title}</p>
       <p className="icon">{isOpen ? "-" : "+"}</p>
 
-      {isOpen && <div className="content-box">{text}</div>}
+      {isOpen && <div className="content-box">{children}</div>}
     </div>
   );
 }
